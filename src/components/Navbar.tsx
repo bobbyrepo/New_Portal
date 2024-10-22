@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import { Divider, ButtonGroup, Button } from '@mui/material';
@@ -7,7 +7,30 @@ import { categories } from '../utils/constant';
 
 function Navbar() {
     const navigate = useNavigate();
+    const [search, setSearch] = useState("")
 
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }
+
+
+    const handleKeyPress = (
+        event: KeyboardEvent<HTMLInputElement> | React.MouseEvent<SVGSVGElement>
+    ) => {
+        // Check if the event is a KeyboardEvent
+        if ("key" in event) {
+            if (event.key === "Enter") {
+                (event?.target as HTMLInputElement).blur();
+                setSearch("")
+                navigate(`/search`, { state: { category: `What We Found for "${search}"`, query: search } });
+            }
+        }
+        // Check if the event is a MouseEvent
+        else if ("buttons" in event) {
+            navigate(`/search`, { state: { category: `What We Found for "${search}"`, query: search } });
+        }
+
+    };
     return (
         <div className="">
 
@@ -25,16 +48,20 @@ function Navbar() {
                         <div className="flex gap-2 items-center bg-black text-[#c2c2c2] 
                        sm:px-4 px-3 rounded-full"
                         >
-                            <SearchIcon className='cursor-pointer' />
+                            <SearchIcon
+                                onClick={handleKeyPress}
+                                className='cursor-pointer'
+                            />
                             <Divider orientation="vertical" variant="middle" flexItem sx={{ backgroundColor: "gray" }} />
                             <input
+                                value={search}
                                 placeholder="search"
                                 className='bg-black md:w-[350px] sm:w-[300px] w-[180px] 
                             h-10  md:text-lg sm:text-md text-sm  
                             placeholder:text-[#646464] outline-none'
-                                // onChange={handleChange}
+                                onChange={handleChange}
                                 // onClick={() => toggleShow(true)}
-                                // onKeyDown={handleKeyPress}
+                                onKeyDown={handleKeyPress}
                                 type="text" />
                         </div>
                     </div>
