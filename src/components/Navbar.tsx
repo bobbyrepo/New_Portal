@@ -1,16 +1,22 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import { Divider, ButtonGroup, Button } from '@mui/material';
 
 import { categories } from '../utils/constant';
 
 function Navbar() {
+    const navigate = useNavigate();
+
     return (
         <div className="">
 
             <div className="bg-neutral-900 text-white">
                 <div className='w-[90%] mx-auto flex items-center justify-between py-3'>
-                    <div className="flex text-2xl cursor-pointer">
+                    <div
+                        onClick={() => navigate('/')}
+                        className="flex text-2xl cursor-pointer"
+                    >
                         <h1 className='font-semibold'>NEWS</h1>
                         <h1 className='font-thin'>Daily</h1>
                     </div>
@@ -54,7 +60,13 @@ function Navbar() {
             <ButtonGroup className='bg-neutral-800 w-full text-white rounded-none' variant="outlined" >
                 {
                     categories.map((item, ind) => (
-                        <Button key={ind} className='w-full text-white hover:bg-neutral-900 border-none'>{item}</Button>
+                        <Button
+                            key={ind}
+                            onClick={() => navigate('/explore', { state: { category: item } })}
+                            className='w-full text-white hover:bg-neutral-900 border-none'
+                        >
+                            {item}
+                        </Button>
                     ))
                 }
             </ButtonGroup>

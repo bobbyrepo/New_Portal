@@ -16,7 +16,7 @@ function Carousel() {
 
     const fetchTopHeadlines = async () => {
         try {
-            const response = await getTopHeadlines()
+            const response = await getTopHeadlines(10)
             setTopHeadlines(response.data.articles.filter((res: NewsCardsType) => res.urlToImage != null))
         }
         catch (err) {

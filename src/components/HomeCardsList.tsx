@@ -9,9 +9,9 @@ import NewsCard from './NewsCard'
 function HomeCardsList({ category }: { category: string }) {
     const [latest, setLatest] = useState<NewsCardsType[]>([])
 
-    const fetchLatest = async (category: string) => {
+    const fetchLatest = async (category: string, quantity: number) => {
         try {
-            const response = await getByQuery(category)
+            const response = await getByQuery(category, quantity)
             setLatest(response.data.articles.filter((res: NewsCardsType) => res.urlToImage != null))
         } catch (error) {
             console.log("Error Fetching Latest News", error)
@@ -19,7 +19,7 @@ function HomeCardsList({ category }: { category: string }) {
     }
 
     useEffect(() => {
-        fetchLatest(category)
+        fetchLatest(category, 10)
     }, [])
 
     return (

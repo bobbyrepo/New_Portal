@@ -9,39 +9,22 @@ import { NewsCardsType } from '../utils/Types'
 import HeaderSection from '../components/HeaderSection';
 import Carousel from '../components/Carousel'
 import HomeCardsList from '../components/HomeCardsList';
+import { categories } from '../utils/constant';
 
 function Home() {
 
     return (
-        <div className='w-[90%] mx-auto'>
+        <div className='w-[90%] mx-auto mb-20'>
 
-            <HeaderSection title="Top Head Lines">
+            <HeaderSection title="Top Head Lines" >
                 <Carousel />
             </HeaderSection>
 
-            <HeaderSection title="Business">
-                <HomeCardsList category="business" />
-            </HeaderSection>
-
-            <HeaderSection title="Entertainment">
-                <HomeCardsList category="Entertainment" />
-            </HeaderSection>
-
-            <HeaderSection title="Health">
-                <HomeCardsList category="Health" />
-            </HeaderSection>
-
-            <HeaderSection title="Science">
-                <HomeCardsList category="Science" />
-            </HeaderSection>
-
-            <HeaderSection title="Sport">
-                <HomeCardsList category="Sport" />
-            </HeaderSection>
-
-            <HeaderSection title="Technology">
-                <HomeCardsList category="Technology" />
-            </HeaderSection>
+            {categories.map((item: string, ind: number) =>
+                <HeaderSection key={ind} title={item}>
+                    <HomeCardsList category={item} />
+                </HeaderSection>
+            )}
 
         </div>
     )
