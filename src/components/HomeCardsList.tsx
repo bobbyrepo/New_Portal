@@ -23,7 +23,7 @@ function HomeCardsList({ category }: { category: string }) {
     }, [])
 
     return (
-        <div className="grid grid-cols-5 gap-3">
+        <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
             {latest.slice(0, 5).map((item) => (
                 <div key={item.title} className="inline-block">
                     <NewsCard news={item} />

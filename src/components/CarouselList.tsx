@@ -21,9 +21,9 @@ function CarouselList({ active, topHeadlines }: { active: number, topHeadlines: 
     const nextFiveHeadlines = getNextFiveElements(active, topHeadlines);
 
     return (
-        <Grid2 container spacing={2} mt={2}>
+        <Grid2 className="grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3 mt-8">
             {nextFiveHeadlines.map((item, ind) =>
-                <Grid2 key={ind} size={2.4} >
+                <Grid2 key={ind}>
                     <Card className="relative h-fit">
                         <CardMedia
                             component="img"
@@ -33,7 +33,7 @@ function CarouselList({ active, topHeadlines }: { active: number, topHeadlines: 
                         <div className="absolute -bottom-3  h-36 w-full _carouselGradient"></div>
 
                         <CardContent className='p-2 absolute bottom-0 text-white' >
-                            <Typography className='font-serif text-[17px] line-clamp-3'>
+                            <Typography className='font-serif md:text-[17px] sm:text-[15px] text-[14px] line-clamp-3'>
                                 {topHeadlines[item]?.title}
                             </Typography>
                         </CardContent>

@@ -35,10 +35,10 @@ function Navbar() {
         <div className="">
 
             <div className="bg-neutral-900 text-white">
-                <div className='w-[90%] mx-auto flex items-center justify-between py-3'>
+                <div className='sm:w-[90%] w-[95%] mx-auto flex gap-2 items-center justify-between py-3'>
                     <div
                         onClick={() => navigate('/')}
-                        className="flex text-2xl cursor-pointer"
+                        className="flex md:text-2xl sm:text-xl text-lg cursor-pointer"
                     >
                         <h1 className='font-semibold'>NEWS</h1>
                         <h1 className='font-thin'>Daily</h1>
@@ -57,7 +57,7 @@ function Navbar() {
                                 value={search}
                                 placeholder="search"
                                 className='bg-black md:w-[350px] sm:w-[300px] w-[180px] 
-                            h-10  md:text-lg sm:text-md text-sm  
+                            h-10  sm:text-lg text-md
                             placeholder:text-[#646464] outline-none'
                                 onChange={handleChange}
                                 // onClick={() => toggleShow(true)}
@@ -84,13 +84,14 @@ function Navbar() {
                 }
             </div> */}
 
-            <ButtonGroup className='bg-neutral-800 w-full text-white rounded-none' variant="outlined" >
+            <ButtonGroup className='bg-neutral-800 w-full overflow-x-auto text-white rounded-none' variant="outlined" >
                 {
                     categories.map((item, ind) => (
                         <Button
+                            sx={{ fontSize: { xs: "12px", sm: "13px", md: "16px" }, mr: 1 }}
                             key={ind}
                             onClick={() => navigate('/explore', { state: { category: item } })}
-                            className='w-full text-white hover:bg-neutral-900 border-none'
+                            className='min-w-fit w-full text-white hover:bg-neutral-900 border-none'
                         >
                             {item}
                         </Button>

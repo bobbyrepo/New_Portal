@@ -15,33 +15,33 @@ function CarouselCard({ topHeadlines, active, toggleActive }: CarouselCardProps)
     return (
         <div className='relative '>
 
-            <Card className="flex shadow-none border-2">
-                <div className='relative h-[360px] aspect-[16/7] object-cover'>
+            <Card className="grid md:grid-cols-3 lg:grid-cols-2 shadow-none border-2">
+                <div className='col-span-2 lg:col-span-1 relative md:h-[360px] h-[280px] object-cover'>
                     <CardMedia
                         component="img"
                         className='h-full'
                         image={topHeadlines[active]?.urlToImage}
                     />
-                    <div className="absolute -bottom-7  h-36 w-full _carouselGradient"></div>
+                    <div className="absolute -bottom-0 h-36 w-full _carouselGradient"></div>
                     <Typography gutterBottom
                         className='absolute bottom-0 px-6 font-serif
-                        text-white text-[22px] leading-8 line-clamp-3'
+                        text-white md:text-[22px] sm:text-xl text-lg leading-8 line-clamp-3'
                     >
                         {topHeadlines[active]?.title}
                     </Typography>
                 </div>
 
                 <CardContent className='relative'>
-                    <Typography gutterBottom className='text-xl font-serif line-clamp-4'>
+                    <Typography gutterBottom className='sm:text-xl text-lg font-serif line-clamp-4'>
                         {topHeadlines[active]?.description}
                     </Typography>
                     <Typography variant="body2"
-                        className='text-lg font-serif line-clamp-4'
+                        className='sm:text-lg text-base font-serif line-clamp-4'
                         sx={{ color: 'text.secondary' }}
                     >
                         {topHeadlines[active]?.content?.substring(0, 200)}
                     </Typography>
-                    <Typography variant="body2" className="absolute bottom-1 w-full text-lg">
+                    <Typography variant="body2" className="md:absolute bottom-1 w-full sm:text-lg text-base ">
                         <h2 className='truncate'>Source : {topHeadlines[active]?.source.name}</h2>
                         <h3>Published Date :
                             {new Date(topHeadlines[active]?.publishedAt).toLocaleDateString()}
