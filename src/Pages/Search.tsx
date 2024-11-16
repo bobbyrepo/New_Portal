@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getByQuery } from '../utils/api';
 
@@ -7,7 +7,7 @@ import { Container, Typography, Button, Box } from '@mui/material';
 import { NewsCardsType } from '../utils/Types';
 import ExploreCardsList from '../components/ExploreCardsList';
 
-function Search() {
+const Search: FC = () => {
     const [newsList, setNewsList] = useState<NewsCardsType[]>([]);
     const [pageNo, setPageNo] = useState(1);
     const [loadMore, setLoadMore] = useState<boolean>(true);      // State to check if more news is available

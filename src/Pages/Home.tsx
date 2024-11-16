@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Container, Box } from '@mui/material'
 import HeaderSection from '../components/HeaderSection'
 import Carousel from '../components/Carousel'
 import HomeCardsList from '../components/HomeCardsList'
 import { categories } from '../utils/constant'
 
-function Home() {
+const Home: FC = () => {
     return (
         <Container
             maxWidth={false}

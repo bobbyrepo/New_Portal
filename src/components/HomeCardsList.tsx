@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import { Box, Grid, Grid2 } from '@mui/material'
 
@@ -6,7 +6,12 @@ import { NewsCardsType } from '../utils/Types'
 import { getByQuery } from '../utils/api'
 import NewsCard from './NewsCard'
 
-function HomeCardsList({ category }: { category: string }) {
+interface HomeCardsListProps {
+    category: string;
+}
+
+const HomeCardsList: FC<HomeCardsListProps> = ({ category }) => {
+
     const [latest, setLatest] = useState<NewsCardsType[]>([])
 
     const fetchLatest = async (category: string, quantity: number) => {

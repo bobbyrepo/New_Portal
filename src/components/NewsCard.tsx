@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { Grid, Grid2, Card, CardMedia, CardContent, Typography, Box } from '@mui/material'
 import { NewsCardsType } from '../utils/Types'
 import { Link } from 'react-router-dom'
 
-function NewsCard({ news }: { news: NewsCardsType }) {
+interface NewsCardProps {
+    news: NewsCardsType;
+}
+
+const NewsCard: FC<NewsCardProps> = ({ news }) => {
+
     return (
         <Link to={news.url}>
             <Card className="relative h-[400px] shadow-none border-2">

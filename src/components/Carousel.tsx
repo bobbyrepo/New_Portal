@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 
 import { NewsCardsType } from '../utils/Types';
 import CarouselCard from './CarouselCard';
@@ -10,7 +10,7 @@ import { Box } from '@mui/material';
 
 
 
-function Carousel() {
+const Carousel: FC = () => {
 
     const [active, setActive] = useState<number>(0);
 

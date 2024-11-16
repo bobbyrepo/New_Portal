@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -9,7 +9,8 @@ interface HeaderSectionProps {
     children: React.ReactNode;
 }
 
-function HeaderSection({ title, children }: HeaderSectionProps) {
+const HeaderSection: FC<HeaderSectionProps> = ({ title, children }) => {
+
     const navigate = useNavigate();
 
     return (

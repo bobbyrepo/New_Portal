@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getByQuery, getTopHeadlines } from '../utils/api';
 
@@ -15,7 +15,7 @@ type CategoryData = {
     };
 };
 
-function Explore() {
+const Explore: FC = () => {
     const [categoryData, setCategoryData] = useState<CategoryData>({});
     const [loadMore, setLoadMore] = useState<boolean>(true);
 

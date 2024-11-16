@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { Grid2, Card, CardMedia, CardContent, Typography, Box } from '@mui/material'
 import { NewsCardsType } from '../utils/Types'
 
-function CarouselList({ active, topHeadlines }: { active: number, topHeadlines: NewsCardsType[] }) {
+interface CarouselListProps {
+    active: number;
+    topHeadlines: NewsCardsType[];
+}
+
+const CarouselList: FC<CarouselListProps> = ({ active, topHeadlines }) => {
 
     // Function to get the next 5 elements from the active index, wrapping around if necessary
     const getNextFiveElements = (active: number, topHeadlines: NewsCardsType[]) => {

@@ -1,11 +1,12 @@
-import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from 'react'
+import React, { FC, useEffect, useState, ChangeEvent, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import { Divider, ButtonGroup, Button, Box, Typography, InputBase } from '@mui/material';
 
 import { categories } from '../utils/constant';
 
-function Navbar() {
+const Navbar: FC = () => {
+
     const navigate = useNavigate();
     const [search, setSearch] = useState("")
 

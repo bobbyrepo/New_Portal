@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -11,7 +11,8 @@ interface CarouselCardProps {
     toggleActive: (direction: 'next' | 'prev') => void;
 }
 
-function CarouselCard({ topHeadlines, active, toggleActive }: CarouselCardProps) {
+const CarouselCard: FC<CarouselCardProps> = ({ topHeadlines, active, toggleActive }) => {
+
     return (
         <Box sx={{ position: "relative" }}>
 
