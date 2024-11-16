@@ -2,7 +2,7 @@ import React from 'react'
 
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { Card, CardMedia, CardContent, Typography } from '@mui/material'
+import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material'
 import { NewsCardsType } from '../utils/Types';
 
 interface CarouselCardProps {
@@ -13,23 +13,31 @@ interface CarouselCardProps {
 
 function CarouselCard({ topHeadlines, active, toggleActive }: CarouselCardProps) {
     return (
-        <div className='relative '>
+        <Box sx={{ position: "relative" }}>
 
             <Card className="grid md:grid-cols-3 lg:grid-cols-2 shadow-none border-2">
-                <div className='col-span-2 lg:col-span-1 relative md:h-[360px] h-[280px] object-cover'>
+                <Box className='col-span-2 lg:col-span-1 relative md:h-[360px] h-[280px] object-cover'>
                     <CardMedia
                         component="img"
                         className='h-full'
                         image={topHeadlines[active]?.urlToImage}
                     />
-                    <div className="absolute -bottom-0 h-36 w-full _carouselGradient"></div>
+                    <Box
+                        className="_carouselGradient"
+                        sx={{
+                            position: 'absolute',
+                            bottom: 0,
+                            height: '36px',
+                            width: '100%'
+                        }}
+                    />
                     <Typography gutterBottom
                         className='absolute bottom-0 px-6 font-serif
                         text-white md:text-[22px] sm:text-xl text-lg leading-8 line-clamp-3'
                     >
                         {topHeadlines[active]?.title}
                     </Typography>
-                </div>
+                </Box>
 
                 <CardContent className='relative'>
                     <Typography gutterBottom className='sm:text-xl text-lg font-serif line-clamp-4'>
@@ -42,10 +50,10 @@ function CarouselCard({ topHeadlines, active, toggleActive }: CarouselCardProps)
                         {topHeadlines[active]?.content?.substring(0, 200)}
                     </Typography>
                     <Typography variant="body2" className="md:absolute bottom-1 w-full sm:text-lg text-base ">
-                        <h2 className='truncate'>Source : {topHeadlines[active]?.source.name}</h2>
-                        <h3>Published Date :
+                        <Typography className='truncate'>Source : {topHeadlines[active]?.source.name}</Typography>
+                        <Typography>Published Date :
                             {new Date(topHeadlines[active]?.publishedAt).toLocaleDateString()}
-                        </h3>
+                        </Typography>
                     </Typography>
                 </CardContent>
 
@@ -62,7 +70,7 @@ function CarouselCard({ topHeadlines, active, toggleActive }: CarouselCardProps)
                 text-white bg-neutral-800 rounded-full mx-2'
             />
 
-        </div>
+        </Box >
     )
 }
 

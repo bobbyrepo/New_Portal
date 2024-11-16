@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Grid, Grid2 } from '@mui/material'
+import { Box, Grid, Grid2 } from '@mui/material'
 
 import { NewsCardsType } from '../utils/Types'
 import { getByQuery } from '../utils/api'
@@ -23,13 +23,13 @@ function HomeCardsList({ category }: { category: string }) {
     }, [])
 
     return (
-        <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
+        <Box className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
             {latest.slice(0, 5).map((item) => (
-                <div key={item.title} className="inline-block">
+                <Box key={item.title} className="inline-block">
                     <NewsCard news={item} />
-                </div>
+                </Box>
             ))}
-        </div>
+        </Box>
     );
 }
 

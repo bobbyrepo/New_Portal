@@ -1,7 +1,7 @@
 import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import { Divider, ButtonGroup, Button } from '@mui/material';
+import { Divider, ButtonGroup, Button, Box, Typography, InputBase } from '@mui/material';
 
 import { categories } from '../utils/constant';
 
@@ -14,59 +14,88 @@ function Navbar() {
     }
 
 
-    const handleKeyPress = (
-        event: KeyboardEvent<HTMLInputElement> | React.MouseEvent<SVGSVGElement>
-    ) => {
-        // Check if the event is a KeyboardEvent
-        if ("key" in event) {
-            if (event.key === "Enter") {
-                (event?.target as HTMLInputElement).blur();
-                setSearch("")
-                navigate(`/search`, { state: { category: `What We Found for "${search}"`, query: search } });
-            }
-        }
-        // Check if the event is a MouseEvent
-        else if ("buttons" in event) {
+    const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            setSearch("");
             navigate(`/search`, { state: { category: `What We Found for "${search}"`, query: search } });
         }
-
     };
+
+    const handleSearchIconClick = () => {
+        setSearch("");
+        navigate(`/search`, { state: { category: `What We Found for "${search}"`, query: search } });
+    };
+
     return (
-        <div className="">
+        <Box className="">
+            {/* Header Section */}
+            <Box className="bg-neutral-900 text-white">
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: { sm: '90%', xs: '95%' },
+                        mx: 'auto',
+                        py: 1,
+                        gap: 2,
+                    }}
+                >
+                    {/* Logo Section */}
 
-            <div className="bg-neutral-900 text-white">
-                <div className='sm:w-[90%] w-[95%] mx-auto flex gap-2 items-center justify-between py-3'>
-                    <div
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            cursor: 'pointer',
+                            fontSize: { md: '1.5rem', sm: '1.25rem', xs: '1rem' },
+                        }}
                         onClick={() => navigate('/')}
-                        className="flex md:text-2xl sm:text-xl text-lg cursor-pointer"
                     >
-                        <h1 className='font-semibold'>NEWS</h1>
-                        <h1 className='font-thin'>Daily</h1>
-                    </div>
-                    <div className="">
+                        <Typography variant="h1" sx={{ fontFamily: 'serif', fontWeight: 'bold', fontSize: 'inherit' }}>
+                            NEWS
+                        </Typography>
+                        <Typography variant="h1" sx={{ fontFamily: 'serif', fontWeight: 'light', fontSize: 'inherit' }}>
+                            Daily
+                        </Typography>
+                    </Box>
 
-                        <div className="flex gap-2 items-center bg-black text-[#c2c2c2] 
-                       sm:px-4 px-3 rounded-full"
-                        >
-                            <SearchIcon
-                                onClick={handleKeyPress}
-                                className='cursor-pointer'
-                            />
-                            <Divider orientation="vertical" variant="middle" flexItem sx={{ backgroundColor: "gray" }} />
-                            <input
-                                value={search}
-                                placeholder="search"
-                                className='bg-black md:w-[350px] sm:w-[300px] w-[180px] 
-                            h-10  sm:text-lg text-md
-                            placeholder:text-[#646464] outline-none'
-                                onChange={handleChange}
-                                // onClick={() => toggleShow(true)}
-                                onKeyDown={handleKeyPress}
-                                type="text" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    {/* Search Section */}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            bgcolor: 'black',
+                            color: '#c2c2c2',
+                            px: { sm: 4, xs: 3 },
+                            borderRadius: '999px',
+                            gap: 2,
+                        }}
+                    >
+                        <SearchIcon
+                            onClick={handleSearchIconClick}
+                            className='cursor-pointer'
+                        />
+                        <Divider orientation="vertical" variant="middle" flexItem sx={{ backgroundColor: "gray" }} />
+                        <InputBase
+                            value={search}
+                            onChange={handleChange}
+                            onKeyDown={handleKeyPress}
+                            placeholder="Search"
+                            sx={{
+                                bgcolor: 'black',
+                                width: { md: '350px', sm: '300px', xs: '180px' },
+                                height: "2.5rem",
+                                color: 'white',
+                                fontSize: { sm: '1rem', xs: '0.875rem' },
+                                fontFamily: 'serif',
+                                '&::placeholder': { color: '#646464' },
+                            }}
+                        />
+                    </Box>
+                </Box>
+            </Box>
 
             {/* <div className="flex items-center justify-evenly py-1 bg-neutral-800 text-white cursor-pointer">
                 {
@@ -92,6 +121,15 @@ function Navbar() {
                             key={ind}
                             onClick={() => navigate('/explore', { state: { category: item } })}
                             className='min-w-fit w-full text-white hover:bg-neutral-900 border-none'
+                        // sx={{
+                        //     fontSize: { xs: '0.75rem', sm: '0.8125rem', md: '1rem' },
+                        //     mr: 1,
+                        //     minWidth: 'fit-content',
+                        //     width: 'auto',
+                        //     color: 'white',
+                        //     '&:hover': { bgcolor: 'neutral.900' },
+                        //     border: 'none',
+                        // }}
                         >
                             {item}
                         </Button>
@@ -99,7 +137,7 @@ function Navbar() {
                 }
             </ButtonGroup>
 
-        </div>
+        </Box >
     )
 }
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getByQuery } from '../utils/api';
 
-import { Button } from '@mui/material';
+import { Container, Typography, Button, Box } from '@mui/material';
 
 import { NewsCardsType } from '../utils/Types';
 import ExploreCardsList from '../components/ExploreCardsList';
@@ -51,23 +51,28 @@ function Search() {
     };
 
     return (
-        <div className="w-[90%] mx-auto mb-20 mt-10">
-            <h1 className="text-3xl font-serif cursor-pointer">{category}</h1>
+        <Container maxWidth={false} sx={{ width: "90%", mt: 5, mb: 10 }}>
+
+            <Typography variant="h4" sx={{ fontFamily: 'serif', cursor: 'pointer', mb: 1 }}>
+                {category}
+            </Typography>
             <ExploreCardsList list={newsList} />
 
             {/* Load More button */}
-            {loadMore && (
-                <div className="flex justify-center mt-6">
-                    <Button
-                        onClick={handleLoadMore}
-                        variant="contained"
-                        disableElevation
-                        className='bg-neutral-700'
-                    >Load More
-                    </Button>
-                </div>
-            )}
-        </div>
+            {
+                loadMore && (
+                    <Box display="flex" justifyContent="center" mt={3}>
+                        <Button
+                            onClick={handleLoadMore}
+                            variant="contained"
+                            disableElevation
+                            className='bg-neutral-700'
+                        >Load More
+                        </Button>
+                    </Box>
+                )
+            }
+        </Container>
     );
 }
 

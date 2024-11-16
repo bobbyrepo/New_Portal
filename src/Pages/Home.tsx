@@ -1,36 +1,33 @@
-import React, { useEffect, useState } from 'react'
-
-import { getTopHeadlines } from '../utils/api'
-import { Grid2, Card, CardMedia, CardContent, Typography, Container } from '@mui/material'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-
-import { NewsCardsType } from '../utils/Types'
-
-import HeaderSection from '../components/HeaderSection';
+import React from 'react'
+import { Container, Box } from '@mui/material'
+import HeaderSection from '../components/HeaderSection'
 import Carousel from '../components/Carousel'
-import HomeCardsList from '../components/HomeCardsList';
-import { categories } from '../utils/constant';
+import HomeCardsList from '../components/HomeCardsList'
+import { categories } from '../utils/constant'
 
 function Home() {
-
     return (
-        <div className='w-[90%] mx-auto mb-20'>
-
-            <HeaderSection title="Top Head Lines" >
+        <Container
+            maxWidth={false}
+            sx={{ width: "90%", mb: 5 }}
+        >
+            <HeaderSection title="Top Headlines">
                 <Carousel />
             </HeaderSection>
 
-            {categories.map((item: string, ind: number) =>
-                <HeaderSection key={ind} title={item}>
-                    <HomeCardsList category={item} />
-                </HeaderSection>
-            )}
-
-        </div>
+            <Box mt={4}>
+                {categories.map((item: string, ind: number) => (
+                    <HeaderSection key={ind} title={item}>
+                        <HomeCardsList category={item} />
+                    </HeaderSection>
+                ))}
+            </Box>
+        </Container>
     )
 }
 
 export default Home
+
 
 
 //     < Grid2 container spacing = { 2} mt = { 4} mb = { 8} >

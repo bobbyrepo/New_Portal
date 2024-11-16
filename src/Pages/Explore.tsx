@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getByQuery, getTopHeadlines } from '../utils/api';
-import { Button } from '@mui/material';
+
+import { Container, Typography, Button, Box } from '@mui/material';
+
 import { NewsCardsType } from '../utils/Types';
 import ExploreCardsList from '../components/ExploreCardsList';
 
@@ -62,13 +64,16 @@ function Explore() {
     };
 
     return (
-        <div className="w-[90%] mx-auto mb-20 mt-10">
-            <h1 className="text-3xl font-serif cursor-pointer">{category}</h1>
+        <Container maxWidth={false} sx={{ width: "90%", mt: 5, mb: 10 }}>
+
+            <Typography variant="h4" sx={{ fontFamily: 'serif', cursor: 'pointer', mb: 1 }}>
+                {category}
+            </Typography>
             <ExploreCardsList list={categoryData[category]?.articles || []} />
 
             {/* Load More button */}
             {loadMore && (
-                <div className="flex justify-center mt-6">
+                <Box display="flex" justifyContent="center" mt={3}>
                     <Button
                         onClick={handleLoadMore}
                         variant="contained"
@@ -77,9 +82,9 @@ function Explore() {
                     >
                         Load More
                     </Button>
-                </div>
+                </Box>
             )}
-        </div>
+        </Container>
     );
 }
 

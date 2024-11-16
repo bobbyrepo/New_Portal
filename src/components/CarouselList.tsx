@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Grid2, Card, CardMedia, CardContent, Typography } from '@mui/material'
+import { Grid2, Card, CardMedia, CardContent, Typography, Box } from '@mui/material'
 import { NewsCardsType } from '../utils/Types'
 
 function CarouselList({ active, topHeadlines }: { active: number, topHeadlines: NewsCardsType[] }) {
@@ -30,7 +30,7 @@ function CarouselList({ active, topHeadlines }: { active: number, topHeadlines: 
                             className='w-full aspect-[16/10] object-cover'
                             image={topHeadlines[item]?.urlToImage}
                         />
-                        <div className="absolute -bottom-3  h-36 w-full _carouselGradient"></div>
+                        <Box className="absolute -bottom-3  h-36 w-full _carouselGradient"></Box>
 
                         <CardContent className='p-2 absolute bottom-0 text-white' >
                             <Typography className='font-serif md:text-[17px] sm:text-[15px] text-[14px] line-clamp-3'>

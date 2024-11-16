@@ -6,6 +6,8 @@ import CarouselList from './CarouselList';
 
 import { getTopHeadlines } from '../utils/api';
 
+import { Box } from '@mui/material';
+
 
 
 function Carousel() {
@@ -41,7 +43,7 @@ function Carousel() {
         }
     };
     return (
-        <div className="cursor-pointer">
+        <Box sx={{ cursor: 'pointer' }}>
 
             <CarouselCard
                 topHeadlines={topHeadlines}
@@ -54,7 +56,7 @@ function Carousel() {
                 topHeadlines={topHeadlines}
             />
 
-        </div>
+        </Box>
     )
 }
 

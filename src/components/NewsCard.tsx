@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Grid, Grid2, Card, CardMedia, CardContent, Typography } from '@mui/material'
+import { Grid, Grid2, Card, CardMedia, CardContent, Typography, Box } from '@mui/material'
 import { NewsCardsType } from '../utils/Types'
 import { Link } from 'react-router-dom'
 
@@ -21,10 +21,10 @@ function NewsCard({ news }: { news: NewsCardsType }) {
                     <Typography variant="body2" className="line-clamp-4" sx={{ color: 'text.secondary', fontSize: { xs: "14px", sm: "15px", md: "16px" } }}>
                         {news.description}
                     </Typography>
-                    <Typography className="absolute bottom-1 w-[90%] flex justify-between">
-                        <h2 className="w-[150px] truncate">{news.source.name}</h2>
-                        <h3>{new Date(news.publishedAt).toLocaleDateString()}</h3>
-                    </Typography>
+                    <Box className="absolute bottom-1 w-[90%] flex justify-between">
+                        <Typography className="w-[150px] truncate">{news.source.name}</Typography>
+                        <Typography>{new Date(news.publishedAt).toLocaleDateString()}</Typography>
+                    </Box>
                 </CardContent>
             </Card>
         </Link>
