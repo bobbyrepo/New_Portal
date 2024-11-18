@@ -5,6 +5,7 @@ import { Box, Grid, Grid2 } from '@mui/material'
 import { NewsCardsType } from '../utils/Types'
 import { getByQuery } from '../utils/api'
 import NewsCard from './NewsCard'
+import NewsCardSkeleton from './NewsCardSkeleton'
 
 interface HomeCardsListProps {
     category: string;
@@ -28,12 +29,23 @@ const HomeCardsList: FC<HomeCardsListProps> = ({ category }) => {
     }, [])
 
     return (
-        <Box className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
-            {latest.slice(0, 5).map((item) => (
-                <Box key={item.title} className="inline-block">
-                    <NewsCard news={item} />
+        <Box>
+            {latest.length > 0 ? (
+                <Box className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
+                    {latest.slice(0, 5).map((item) => (
+                        <Box key={item.title} className="inline-block">
+                            <NewsCard news={item} />
+                        </Box>
+                    ))}
                 </Box>
-            ))}
+            ) : (
+
+                <Box className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
+                    {[...Array(5)].map((_, ind) => (
+                        <NewsCardSkeleton key={ind} />
+                    ))}
+                </Box >
+            )}
         </Box>
     );
 }

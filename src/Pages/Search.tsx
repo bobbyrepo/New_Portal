@@ -6,11 +6,13 @@ import { Container, Typography, Button, Box } from '@mui/material';
 
 import { NewsCardsType } from '../utils/Types';
 import ExploreCardsList from '../components/ExploreCardsList';
+import NewsCardSkeleton from '../components/NewsCardSkeleton';
 
 const Search: FC = () => {
     const [newsList, setNewsList] = useState<NewsCardsType[]>([]);
     const [pageNo, setPageNo] = useState(1);
     const [loadMore, setLoadMore] = useState<boolean>(true);      // State to check if more news is available
+    const [loading, setLoading] = useState<boolean>(true);
 
     const location = useLocation();
     const category = location.state?.category; // Get category from state
@@ -19,6 +21,7 @@ const Search: FC = () => {
     const navigate = useNavigate();
 
     const fetchNews = async () => {
+        setLoading(true)
         let response = await getByQuery(query!, 20, pageNo);
 
         if (response && response.data) {
@@ -29,7 +32,9 @@ const Search: FC = () => {
 
             // Update "load more" state
             setLoadMore(newsList.length + newArticles.length < response.data.totalResults);
+            setLoading(false)
         }
+        else setLoading(false)
     };
 
     useEffect(() => {
@@ -56,7 +61,16 @@ const Search: FC = () => {
             <Typography variant="h4" sx={{ fontFamily: 'serif', cursor: 'pointer', mb: 1 }}>
                 {category}
             </Typography>
-            <ExploreCardsList list={newsList} />
+
+            {newsList.length > 0 ? (
+                <ExploreCardsList loading={loading} list={newsList} />
+            ) : (
+                <Box className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
+                    {[...Array(20)].map((_, ind) => (
+                        <NewsCardSkeleton key={ind} />
+                    ))}
+                </Box >
+            )}
 
             {/* Load More button */}
             {

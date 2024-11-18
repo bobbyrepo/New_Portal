@@ -7,6 +7,8 @@ import CarouselList from './CarouselList';
 import { getTopHeadlines } from '../utils/api';
 
 import { Box } from '@mui/material';
+import CarouselCardSkeleton from './CarouselCardSkeleton';
+import CarouselListSkeleton from './CarouselListSkeleton';
 
 
 
@@ -45,16 +47,24 @@ const Carousel: FC = () => {
     return (
         <Box sx={{ cursor: 'pointer' }}>
 
-            <CarouselCard
-                topHeadlines={topHeadlines}
-                active={active}
-                toggleActive={toggleActive}
-            />
+            {topHeadlines.length > 0 ? (
+                < CarouselCard
+                    topHeadlines={topHeadlines}
+                    active={active}
+                    toggleActive={toggleActive}
+                />
+            ) : (
+                <CarouselCardSkeleton />
+            )}
 
-            <CarouselList
-                active={active}
-                topHeadlines={topHeadlines}
-            />
+            {topHeadlines.length > 0 ? (
+                <CarouselList
+                    active={active}
+                    topHeadlines={topHeadlines}
+                />
+            ) : (
+                <CarouselListSkeleton />
+            )}
 
         </Box>
     )
