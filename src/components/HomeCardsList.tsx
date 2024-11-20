@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { Box, Grid, Grid2 } from '@mui/material'
+import { Box, Grid, Grid2, Typography } from '@mui/material'
 
-import { NewsCardsType } from '../utils/Types'
+import { NewsApiResponse, NewsCardsType } from '../utils/Types'
 import { getByQuery } from '../utils/api'
 import NewsCard from './NewsCard'
 import NewsCardSkeleton from './NewsCardSkeleton'
+import { ApiResponse } from '../utils/request'
 
 interface HomeCardsListProps {
     category: string;
@@ -14,14 +15,30 @@ interface HomeCardsListProps {
 const HomeCardsList: FC<HomeCardsListProps> = ({ category }) => {
 
     const [latest, setLatest] = useState<NewsCardsType[]>([])
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+
 
     const fetchLatest = async (category: string, quantity: number) => {
-        try {
-            const response = await getByQuery(category, quantity)
-            setLatest(response.data.articles.filter((res: NewsCardsType) => res.urlToImage != null))
-        } catch (error) {
-            console.log("Error Fetching Latest News", error)
+        setLoading(true);
+        setError(null);
+
+        const response: ApiResponse<NewsApiResponse> = await getByQuery(category, quantity);
+
+        if (response.error) {
+            setError(response.error.message || 'Failed to fetch news.');
+            setLoading(false);
+            return;
         }
+
+        if (response.data) {
+            const filteredNews = response.data.articles.filter(
+                (res: NewsCardsType) => res.urlToImage != null
+            );
+            setLatest(filteredNews);
+        }
+
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -30,7 +47,19 @@ const HomeCardsList: FC<HomeCardsListProps> = ({ category }) => {
 
     return (
         <Box>
-            {latest.length > 0 ? (
+            {error && (
+                <Typography color="error" sx={{ mb: 3 }}>
+                    {error}
+                </Typography>
+            )}
+
+            {loading ? (
+                <Box className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
+                    {[...Array(5)].map((_, ind) => (
+                        <NewsCardSkeleton key={ind} />
+                    ))}
+                </Box>
+            ) : (
                 <Box className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
                     {latest.slice(0, 5).map((item) => (
                         <Box key={item.title} className="inline-block">
@@ -38,13 +67,6 @@ const HomeCardsList: FC<HomeCardsListProps> = ({ category }) => {
                         </Box>
                     ))}
                 </Box>
-            ) : (
-
-                <Box className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 md:w-full w-[90%] mx-auto">
-                    {[...Array(5)].map((_, ind) => (
-                        <NewsCardSkeleton key={ind} />
-                    ))}
-                </Box >
             )}
         </Box>
     );

@@ -11,3 +11,9 @@ export interface NewsCardsType {
     publishedAt: Date,
     content: string
 }
+
+export interface NewsApiResponse {
+    status: string;
+    totalResults: number;
+    articles: NewsCardsType[];
+}

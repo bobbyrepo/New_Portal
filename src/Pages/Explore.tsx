@@ -4,9 +4,10 @@ import { getByQuery, getTopHeadlines } from '../utils/api';
 
 import { Container, Typography, Button, Box } from '@mui/material';
 
-import { NewsCardsType } from '../utils/Types';
+import { NewsApiResponse, NewsCardsType } from '../utils/Types';
 import ExploreCardsList from '../components/ExploreCardsList';
 import NewsCardSkeleton from '../components/NewsCardSkeleton';
+import { ApiResponse } from '../utils/request';
 
 // Define type for the category data object
 type CategoryData = {
@@ -20,6 +21,7 @@ const Explore: FC = () => {
     const [categoryData, setCategoryData] = useState<CategoryData>({});
     const [loadMore, setLoadMore] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     const location = useLocation();
     const category = location.state?.category; // Get category from state
@@ -31,15 +33,22 @@ const Explore: FC = () => {
         const pageNo = currentCategoryData.pageNo;
 
         setLoading(true)
+        setError(null);
 
-        let response;
+        let response: ApiResponse<NewsApiResponse>;
         if (category === "Top Head Lines") {
             response = await getTopHeadlines(20, pageNo);
         } else {
             response = await getByQuery(category, 20, pageNo);
         }
 
-        if (response && response.data) {
+        if (response.error) {
+            setError(response.error.message || "Failed to fetch news");
+            setLoading(false);
+            return;
+        }
+
+        if (response.data) {
             const newArticles = response.data.articles.filter(
                 (item: NewsCardsType) => item.urlToImage != null
             );
@@ -55,9 +64,9 @@ const Explore: FC = () => {
 
             // Update load more state based on total results
             setLoadMore(currentCategoryData.articles.length + newArticles.length < response.data.totalResults);
-            setLoading(false)
         }
-        else setLoading(false)
+
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -75,6 +84,12 @@ const Explore: FC = () => {
             <Typography variant="h4" sx={{ fontFamily: 'serif', cursor: 'pointer', mb: 1 }}>
                 {category}
             </Typography>
+
+            {error && (
+                <Typography color="error" sx={{ mb: 3 }}>
+                    {error}
+                </Typography>
+            )}
 
             {categoryData[category]?.articles.length > 0 ? (
                 <ExploreCardsList loading={loading} list={categoryData[category]?.articles || []} />
