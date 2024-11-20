@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './Pages/Home'
 import Explore from './Pages/Explore'
 import Search from './Pages/Search'
 
-function App() {
+const App: FC = () => {
   return (
     <>
       <BrowserRouter>

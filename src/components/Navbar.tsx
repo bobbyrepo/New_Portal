@@ -8,7 +8,7 @@ import { categories } from '../utils/constant';
 const Navbar: FC = () => {
 
     const navigate = useNavigate();
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState<string>("")
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)

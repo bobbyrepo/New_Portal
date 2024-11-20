@@ -10,7 +10,7 @@ import NewsCardSkeleton from '../components/NewsCardSkeleton';
 
 const Search: FC = () => {
     const [newsList, setNewsList] = useState<NewsCardsType[]>([]);
-    const [pageNo, setPageNo] = useState(1);
+    const [pageNo, setPageNo] = useState<number>(1);
     const [loadMore, setLoadMore] = useState<boolean>(true);      // State to check if more news is available
     const [loading, setLoading] = useState<boolean>(true);
 
